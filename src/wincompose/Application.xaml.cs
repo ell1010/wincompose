@@ -44,5 +44,7 @@ namespace WinCompose
         public static RemoteControl RemoteControl => (Current as Application).RC;
 
         private static NLog.ILogger Logger = NLog.LogManager.GetCurrentClassLogger();
+
+
     }
 }

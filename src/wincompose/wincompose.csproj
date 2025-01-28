@@ -1,23 +1,27 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Title>WinCompose</Title>
     <Product>WinCompose</Product>
     <Authors>Sam Hocevar</Authors>
     <Copyright>Copyright © 2015—2021 Sam Hocevar et al.</Copyright>
-    <Description></Description>
+    <Description>
+    </Description>
     <OutputType>WinExe</OutputType>
     <RootNamespace>WinCompose</RootNamespace>
     <StartupObject>WinCompose.Program</StartupObject>
-	<TargetFrameworks>net472</TargetFrameworks>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <UseWPF>true</UseWPF>
+    <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
     <DefaultItemExcludes>
         $(DefaultItemExcludes);gitversion.json;**\*.swp;**\*~;
     </DefaultItemExcludes>
+    <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
+    <UseWPF>True</UseWPF>
+    <FileVersion>0.9.14.0</FileVersion>
+    <AssemblyVersion>0.9.14.0</AssemblyVersion>
   </PropertyGroup>
-
   <UsingTask TaskName="GZipTask" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
       <InputFile ParameterType="System.String" Required="true" />
@@ -34,32 +38,20 @@
       ]]></Code>
     </Task>
   </UsingTask>
-  <Target Name="CompressResources" 
-  BeforeTargets="BeforeBuild" 
-          Inputs="..\3rdparty\xorgproto\include\X11\keysymdef.h&#xD;&#xA;&#xD;&#xA;
-                  ..\3rdparty\libx11\nls\en_US.UTF-8\Compose.pre&#xD;&#xA;&#xD;&#xA;
-                  ..\3rdparty\xcompose\dotXCompose&#xD;&#xA;&#xD;&#xA;
-                  ..\3rdparty\unicode-emoji\emoji-test.txt&#xD;&#xA;&#xD;&#xA;
-		  ..\3rdparty\unicodetools\unicodetools\data\ucd\16.0.0\Blocks.txt" 
-          Outputs="$(OutputPath)\keysymdef.h.gz&#xD;&#xA;&#xD;&#xA;
-                   $(OutputPath)\xorg.rules.gz&#xD;&#xA;&#xD;&#xA;
-                   $(OutputPath)\xcompose.rules.gz&#xD;&#xA;&#xD;&#xA;
-                   $(OutputPath)\emoji-test.txt.gz&#xD;&#xA;&#xD;&#xA;
-				   $(OutputPath)\Blocks.txt.gz">
+  <Target Name="CompressResources" BeforeTargets="BeforeBuild" Inputs="..\3rdparty\xorgproto\include\X11\keysymdef.h&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;                  ..\3rdparty\libx11\nls\en_US.UTF-8\Compose.pre&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;                  ..\3rdparty\xcompose\dotXCompose&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;                  ..\3rdparty\unicode-emoji\emoji-test.txt&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;		  ..\3rdparty\unicodetools\unicodetools\data\ucd\16.0.0\Blocks.txt" Outputs="$(OutputPath)\keysymdef.h.gz&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;                   $(OutputPath)\xorg.rules.gz&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;                   $(OutputPath)\xcompose.rules.gz&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;                   $(OutputPath)\emoji-test.txt.gz&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;				   $(OutputPath)\Blocks.txt.gz">
     <GZipTask InputFile="..\3rdparty\xorgproto\include\X11\keysymdef.h" OutputFile="$(OutputPath)\keysymdef.h.gz" />
     <GZipTask InputFile="..\3rdparty\libx11\nls\en_US.UTF-8\Compose.pre" OutputFile="$(OutputPath)\xorg.rules.gz" />
     <GZipTask InputFile="..\3rdparty\xcompose\dotXCompose" OutputFile="$(OutputPath)\xcompose.rules.gz" />
     <GZipTask InputFile="..\3rdparty\unicode-emoji\emoji-test.txt" OutputFile="$(OutputPath)\emoji-test.txt.gz" />
-	<GZipTask InputFile="..\3rdparty\unicodetools\unicodetools\data\ucd\16.0.0\Blocks.txt" OutputFile="$(OutputPath)\Blocks.txt.gz"/>
+    <GZipTask InputFile="..\3rdparty\unicodetools\unicodetools\data\ucd\16.0.0\Blocks.txt" OutputFile="$(OutputPath)\Blocks.txt.gz" />
   </Target>
   <ItemGroup>
     <Item Include="..\3rdparty\xorgproto\include\X11\keysymdef.h" />
     <Item Include="..\3rdparty\libx11\nls\en_US.UTF-8\Compose.pre" />
     <Item Include="..\3rdparty\xcompose\dotXCompose" />
     <Item Include="..\3rdparty\unicode-emoji\emoji-test.txt" />
-	<Item Include="..\3rdparty\unicodetools\unicodetools\data\ucd\16.0.0\Blocks.txt" />
+    <Item Include="..\3rdparty\unicodetools\unicodetools\data\ucd\16.0.0\Blocks.txt" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -77,7 +69,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="$(OutputPath)\keysymdef.h.gz">
       <Visible>false</Visible>
@@ -95,12 +86,11 @@
       <Visible>false</Visible>
       <LogicalName>emoji-test.txt.gz</LogicalName>
     </EmbeddedResource>
-	<EmbeddedResource Include="$(OutputPath)\Blocks.txt.gz">
-	  <Visible>false</Visible>
-	  <LogicalName>Blocks.txt.gz</LogicalName>
-	</EmbeddedResource>
+    <EmbeddedResource Include="$(OutputPath)\Blocks.txt.gz">
+      <Visible>false</Visible>
+      <LogicalName>Blocks.txt.gz</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
-
   <ItemGroup>
     <Resource Include="res\contributors.html" />
     <Resource Include="res\copying.html" />
@@ -120,32 +110,25 @@
     <Item Include="rules\Emoji.txt" />
     <Item Include="rules\WinCompose.txt" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\3rdparty\wpf-notifyicon\src\NotifyIconWpf\NotifyIconWpf.csproj" />
     <ProjectReference Include="..\language\language.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="res\icon_normal.ico" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Emoji.Wpf" Version="0.3.3" />
-    <PackageReference Include="GitVersion.MsBuild" Version="5.6.10" PrivateAssets="all">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="NLog" Version="4.7.10" />
-    <PackageReference Include="Stfu" Version="0.1.5" />
+    <PackageReference Include="Emoji.Wpf" Version="0.3.4" />
+    <PackageReference Include="NLog" Version="5.3.4" />
+    <PackageReference Include="Stfu" Version="0.1.10" />
+	  <FrameworkReference Include="Microsoft.WindowsDesktop.App" />
   </ItemGroup>
-
   <ItemGroup>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-
   <Target Name="InsertIcons" AfterTargets="AfterBuild">
     <!-- Icons are loaded alphabetically: icon_normal.ico icon_sequences.ico icon_settings.ico -->
     <Exec Command="..\3rdparty\inserticons\bin\$(Configuration)\InsertIcons.exe $(OutputPath)$(TargetName).exe res" />

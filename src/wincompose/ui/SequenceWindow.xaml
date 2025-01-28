@@ -13,28 +13,19 @@
 
 <wc:BaseWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2010"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wc="clr-namespace:WinCompose"
         xmlns:i18n="clr-namespace:WinCompose.i18n;assembly=language"
         xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
-        mc:Ignorable="d" x:Class="WinCompose.SequenceWindow"
+        xmlns:stfu="clr-namespace:Stfu.Wpf;assembly=Stfu"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d av" x:Class="WinCompose.SequenceWindow"
         Title="{x:Static i18n:Text.WindowTitle}" Width="1024" Height="600"
         Icon="/WinCompose;component/res/icon_sequences.png">
 
-    <Window.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.Close"
-                        Executed="OnCloseCommandExecuted"/>
-        <CommandBinding Command="ApplicationCommands.Copy"
-                        Executed="OnCopyCommandExecuted"/>
-    </Window.CommandBindings>
-
-    <Window.InputBindings>
-        <KeyBinding Key="Escape" Command="ApplicationCommands.Close"/>
-    </Window.InputBindings>
-
-    <Window.Resources>
+    <wc:BaseWindow.Resources>
         <Image Height="14" x:Key="CopyIcon"       emoji:Image.Source="📋"/>
         <Image Height="14" x:Key="FavoriteIcon"   emoji:Image.Source="❤️"/>
         <Image Height="14" x:Key="UnfavoriteIcon" emoji:Image.Source="💔"/>
@@ -93,7 +84,7 @@
            - ControlTemplate for a ContentControl that renders a key sequence using
            - fancy keycap images.
           -->
-        <ControlTemplate x:Key="SequenceView" TargetType="ContentControl">
+        <ControlTemplate x:Key="SequenceView" TargetType="{x:Type ContentControl}">
             <StackPanel Orientation="Horizontal" Margin="4,0">
                 <ItemsControl ItemsSource="{Binding FullSequence}">
                     <ItemsControl.ItemsPanel>
@@ -152,7 +143,18 @@
             <MenuItem Header="{x:Static i18n:Text.RemoveFromFavorites}" Icon="{StaticResource UnfavoriteIcon}"
                       Click="ToggleFavorite_Click" Visibility="{Binding RemoveFromFavoritesVisibility}"/>
         </ContextMenu>
-    </Window.Resources>
+    </wc:BaseWindow.Resources>
+
+    <wc:BaseWindow.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close"
+                        Executed="OnCloseCommandExecuted"/>
+        <CommandBinding Command="ApplicationCommands.Copy"
+                        Executed="OnCopyCommandExecuted"/>
+    </wc:BaseWindow.CommandBindings>
+
+    <wc:BaseWindow.InputBindings>
+        <KeyBinding Key="Escape" Command="ApplicationCommands.Close"/>
+    </wc:BaseWindow.InputBindings>
 
     <Grid Margin="8">
         <Grid.ColumnDefinitions>
@@ -167,8 +169,8 @@
                                   ContentTemplate="{StaticResource SearchTextTemplate}"/>
             </StackPanel>
 
-            <GroupBox DockPanel.Dock="Bottom" Margin="4"
-                      Header="{x:Static i18n:Text.UserDefinedSequences}">
+            <GroupBox DockPanel.Dock="Bottom" Margin="2"
+                      Header="{x:Static i18n:Text.UserDefinedSequences}" BorderThickness="0.1,0.1,0.1,0.1">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                     <Button x:Name="EditUserDefinedSequences" MinWidth="80" Margin="8,4"
                             Content="{x:Static i18n:Text.UserDefinedSequencesEdit}"
@@ -213,27 +215,27 @@
 
         <DockPanel Grid.Column="2">
             <TextBlock DockPanel.Dock="Top" Text="{x:Static i18n:Text.Sequences}" Margin="8"/>
-            <ListBox Margin="4" ItemsSource="{Binding Sequences}" Name="ListBox" AlternationCount="2"
+            <ListBox Margin="4" ItemsSource="{Binding Sequences}" x:Name="ListBox" AlternationCount="2"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     VirtualizingStackPanel.VirtualizationMode="Recycling"
-                     emoji:Behaviors.SmoothScrolling="True">
+                     VirtualizingPanel.VirtualizationMode="Recycling"
+                     stfu:Behaviors.SmoothScrolling="True" >
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel emoji:Behaviors.SmoothScrolling="True"/>
+                        <VirtualizingStackPanel stfu:Behaviors.SmoothScrolling="True"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                        <Style.Triggers>
-                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                                <Setter Property="Background" Value="#0cf39611"></Setter>
-                            </Trigger>
-                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                                <Setter Property="Background" Value="#08000000"></Setter>
-                            </Trigger>
-                        </Style.Triggers>
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         <Setter Property="ContextMenu" Value="{StaticResource ContextMenu}"/>
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                <Setter Property="Background" Value="#0cf39611"/>
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                <Setter Property="Background" Value="#08000000"/>
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
@@ -243,17 +245,17 @@
                             <!-- The small character box and its large tooltip -->
                             <Border BorderThickness="1" BorderBrush="DarkGray" CornerRadius="4"
                                     Background="White" Margin="2,0,4,0" SnapsToDevicePixels="True">
-                                <Viewbox Height="32" DockPanel.Dock="Left" StretchDirection="UpOnly"
-                                         ToolTipService.InitialShowDelay="0" ToolTipService.BetweenShowDelay="0">
-                                    <emoji:TextBlock Text="{Binding Result}" Background="Transparent"
-                                                     Height="32" Margin="4,0,4,0" FontSize="24"
-                                                     FontFamily="{x:Static wc:Constants.PreferredFontFamily}"/>
-                                </Viewbox>
                                 <Border.ToolTip>
                                     <emoji:TextBlock Text="{Binding Result}"
                                                      Height="200" Margin="20,0,20,0" FontSize="150"
                                                      FontFamily="{x:Static wc:Constants.PreferredFontFamily}"/>
                                 </Border.ToolTip>
+                                <Viewbox Height="32" DockPanel.Dock="Left" StretchDirection="UpOnly"
+                                         ToolTipService.InitialShowDelay="0" ToolTipService.BetweenShowDelay="0">
+                                    <emoji:TextBlock Text="{Binding Result}" Background="Transparent"
+                                                     Height="32" Margin="10,0,10,0" FontSize="24" Foreground="Black"
+                                                     FontFamily="{x:Static wc:Constants.PreferredFontFamily}"/>
+                                </Viewbox>
                             </Border>
 
                             <!-- The sequence, printed as key icons -->
@@ -265,7 +267,7 @@
                                     <ScaleTransform ScaleX="0.9" ScaleY="0.9" />
                                 </StackPanel.RenderTransform>
                                 <TextBlock Text="{Binding CodePoint, Mode=OneTime}"
-                                           Foreground="DarkMagenta"/>
+                                           Foreground="CornflowerBlue"/>
                                 <TextBlock Text="{Binding UnicodeCategory, Converter={wc:UnicodeCategoryConverter}, Mode=OneTime}"
                                            Foreground="DarkCyan" FontStyle="Italic" HorizontalAlignment="Right" Margin="10,0"/>
                             </StackPanel>
@@ -276,17 +278,17 @@
 
             </ListBox>
         </DockPanel>
-        <Frame x:Name="MainFrame">
+        <Frame x:Name="MainFrame" Focusable="False" IsHitTestVisible="False">
             <Frame.Template>
-                <ControlTemplate TargetType="Frame">
+                <ControlTemplate TargetType="{x:Type Frame}">
                     <Border BorderThickness="{TemplateBinding Border.BorderThickness}"
-                            Padding="{TemplateBinding Control.Padding}"
+                            Padding="{TemplateBinding Padding}"
                             BorderBrush="{TemplateBinding Border.BorderBrush}"
                             Background="{TemplateBinding Panel.Background}">
-                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
-                                          ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
-                                          ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
-                                          Name="PART_FrameCP"/>
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                          x:Name="PART_FrameCP"/>
                     </Border>
                 </ControlTemplate>
             </Frame.Template>

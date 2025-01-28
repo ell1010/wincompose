@@ -71,7 +71,7 @@ namespace WinCompose
             => Uri.UnescapeDataString(new UriBuilder(ExecutableCodeBase).Path);
 
         private static string ExecutableCodeBase
-            => Assembly.GetExecutingAssembly().GetName().CodeBase;
+            => Assembly.GetExecutingAssembly().Location;
 
         private static string ExecutableDir
             => Path.GetDirectoryName(ExecutableName);

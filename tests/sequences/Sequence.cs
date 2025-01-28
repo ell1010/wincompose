@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Runtime.Versioning;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WinCompose
 {
+    [SupportedOSPlatform("Windows7.0")]
     [TestClass]
     public class SequenceTreeTest
     {

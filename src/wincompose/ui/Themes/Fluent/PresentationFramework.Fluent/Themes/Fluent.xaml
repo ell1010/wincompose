@@ -1,0 +1,51 @@
+<!--
+    This Source Code Form is subject to the terms of the MIT License.
+    If a copy of the MIT was not distributed with this file, You can obtain one at https://opensource.org/licenses/MIT.
+    Copyright (C) Leszek Pomianowski and WPF UI Contributors.
+    All Rights Reserved.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Resources/DefaultContextMenu.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Resources/DefaultFocusVisualStyle.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Resources/Fonts.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Resources/StaticColors.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Resources/Variables.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/Button.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/Calendar.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/CheckBox.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/ComboBox.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/ContextMenu.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/DataGrid.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/DatePicker.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/Expander.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/Frame.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/Label.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/ListBox.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/ListBoxItem.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/ListView.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/ListViewItem.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/Menu.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/MenuItem.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/Page.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/PasswordBox.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/ProgressBar.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/RadioButton.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/RepeatButton.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/RichTextBox.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/ScrollBar.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/ScrollViewer.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/Separator.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/Slider.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/StatusBar.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/TabControl.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/TextBlock.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/TextBox.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/ToggleButton.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/ToolBar.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/ToolTip.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/TreeView.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/TreeViewItem.xaml" />
+        <ResourceDictionary Source="/ui/Themes/Fluent/PresentationFramework.Fluent/Styles/Window.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

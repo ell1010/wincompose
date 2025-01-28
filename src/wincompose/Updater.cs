@@ -14,7 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -126,9 +126,9 @@ static class Updater
     {
         try
         {
-            WebClient browser = new WebClient();
-            browser.Headers.Add("user-agent", GetUserAgent());
-            using (Stream s = browser.OpenRead("http://wincompose.info/status.txt"))
+            HttpClient browser = new();
+            browser.DefaultRequestHeaders.Add("user-agent", GetUserAgent());
+            using (Stream s = browser.GetStreamAsync("http://wincompose.info/status.txt").Result)
             using (StreamReader sr = new StreamReader(s))
             {
                 m_data.Clear();
