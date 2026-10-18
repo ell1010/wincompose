@@ -165,6 +165,22 @@ static internal class NativeMethods
         IntPtr childAfter, string className, string windowTitle);
     [DllImport("user32")]
     public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+
+	[DllImport("user32.dll")]
+    public static extern bool GetGUIThreadInfo(uint idThread, ref GUITHREADINFO lpgui);
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct RECT { public int left, top, right, bottom; }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct GUITHREADINFO
+    {
+        public int cbSize;
+        public int flags;
+        public IntPtr hwndActive, hwndFocus, hwndCapture,
+                        hwndMenuOwner, hwndMoveSize, hwndCaret;
+        public RECT rcCaret;
+    }
 };
 
 }
