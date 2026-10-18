@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -146,6 +147,18 @@ public static class KeyboardLayout
         Window.Hwnd = NativeMethods.GetForegroundWindow();
 
         var tid = NativeMethods.GetWindowThreadProcessId(Window.Hwnd, out var pid);
+
+        // Some applications (e.g. the new Notepad in Windows 11) report a stale
+        // layout for the foreground window's thread, but the thread owning the
+        // window that actually has keyboard focus reports the correct one.
+        var info = new NativeMethods.GUITHREADINFO();
+        info.cbSize = Marshal.SizeOf(typeof(NativeMethods.GUITHREADINFO));
+        if (NativeMethods.GetGUIThreadInfo(0, ref info) && info.hwndFocus != IntPtr.Zero)
+        {
+            var focus_tid = NativeMethods.GetWindowThreadProcessId(info.hwndFocus, out _);
+            if (focus_tid != 0) tid = focus_tid;
+        }
+
         var active_layout = NativeMethods.GetKeyboardLayout(tid);
         if (active_layout != m_current_layout)
         {
